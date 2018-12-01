@@ -21,6 +21,7 @@
         android:textColor="@android:color/black"
         android:textSize="50sp"
         android:textStyle="bold"
+        android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/imageView2"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
@@ -38,6 +39,7 @@
         android:textColor="@android:color/black"
         android:textSize="24sp"
         android:textStyle="italic"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/searchView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -47,6 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/todo"
+        android:visibility="visible"
         app:srcCompat="@drawable/images" />
 
     <ImageView
@@ -54,6 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/todo"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/images" />
 
