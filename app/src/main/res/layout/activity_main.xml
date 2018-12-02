@@ -15,31 +15,27 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:gravity="center"
-        android:text="@string/pokedex"
+        android:text="@string/pok_dex"
         android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@android:color/black"
-        android:textSize="50sp"
+        android:textSize="44sp"
         android:textStyle="bold"
-        android:visibility="visible"
+        app:fontFamily="serif"
         app:layout_constraintEnd_toStartOf="@+id/imageView2"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView5"
-        android:layout_width="375dp"
+        android:id="@+id/textView2"
+        android:layout_width="384dp"
         android:layout_height="116dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:gravity="bottom"
+        android:gravity="center"
         android:text="@string/welcome_to_the_world_of_pokemon_here_you_can_gather_information_for_any_pokemon_across_every_generation"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         android:textStyle="italic"
-        android:visibility="visible"
+        app:fontFamily="serif"
         app:layout_constraintBottom_toTopOf="@+id/searchView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -49,7 +45,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/todo"
-        android:visibility="visible"
         app:srcCompat="@drawable/images" />
 
     <ImageView
@@ -57,9 +52,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/todo"
-        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/images" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="391dp"
+        android:layout_height="265dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@drawable/image"
+        android:contentDescription="@string/todo" />
 
     <SearchView
         android:id="@+id/searchView"
