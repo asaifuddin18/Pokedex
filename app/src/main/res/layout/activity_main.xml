@@ -29,7 +29,12 @@
     <TextView
         android:id="@+id/pokemonname"
         android:layout_width="384dp"
-        android:layout_height="116dp"
+        android:layout_height="133dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="48dp"
         android:gravity="center"
         android:text="@string/welcome_to_the_world_of_pokemon_here_you_can_gather_information_for_any_pokemon_across_every_generation"
         android:textColor="@android:color/black"
@@ -38,6 +43,7 @@
         app:fontFamily="serif"
         app:layout_constraintBottom_toTopOf="@+id/searchView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
@@ -57,14 +63,16 @@
 
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="391dp"
-        android:layout_height="265dp"
+        android:layout_width="817dp"
+        android:layout_height="482dp"
+        android:contentDescription="@string/todo"
         app:layout_constraintBottom_toTopOf="@+id/pokemonname"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@drawable/image"
-        android:contentDescription="@string/todo" />
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/image" />
 
     <SearchView
         android:id="@+id/searchView"
@@ -82,13 +90,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="584dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.975"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView" />
+        app:layout_constraintHorizontal_bias="0.983"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

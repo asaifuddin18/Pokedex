@@ -57,7 +57,7 @@ public class Main2Activity extends AppCompatActivity {
                         @Override
                         public void onResponse(final JSONObject response) {
                             TextView test = findViewById(R.id.nationaldex);
-                            test.setText("test");
+                            //test.setText("test"); this is how to set texts
 
                         }
                     }, new Response.ErrorListener() {
