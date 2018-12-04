@@ -2,9 +2,6 @@
     <string name="app_name">Pokedex</string>
     <string name="pokedex">Pokedex</string>
     <string name="todo">TODO</string>
-    <string name="pokedex">Pokedex</string>
-    <string name="todo">TODO</string>
-    <string name="todo">TODO</string>
     <string name="welcome_string_todo">Welcome @string/todo</string>
     <string name="welcome_to_the_world_of_pokemon_here_you_will_find">Welcome to the world of Pokemon. Here, you will find</string>
     <string name="welcome_to_the_world_of_pokemon_here_you_can_gather_information_for_any_pokemon_across_every_generation">Welcome to the world of Pokemon. Here, you can gather information for any pokemon across every generation.</string>
@@ -16,7 +13,5 @@
     <string name="height">Height</string>
     <string name="ability">Ability</string>
     <string name="hidden_ability">Hidden Ability</string>
-    <string name="todo">TODO</string>
-    <string name="todo">TODO</string>
     <string name="stats_evolution">Stats / Evolution</string>
 </resources>
