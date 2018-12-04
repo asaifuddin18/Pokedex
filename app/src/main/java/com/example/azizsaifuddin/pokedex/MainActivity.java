@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static RequestQueue requestQueue;
     private static final String TAG = "MainActivity";
-    private static String input = "chimchar";
+    private static String input = "pikachu";
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

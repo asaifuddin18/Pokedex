@@ -1,47 +1,75 @@
 package com.example.azizsaifuddin.pokedex;
 
-public class PokemonSearch {
-    private String rawJSON;
-    private String name;
-    public PokemonSearch(String inputJSON, String inputName) {
-        rawJSON = inputJSON;
-        name = inputName;
+import android.content.Intent;
+import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import java.text.DecimalFormat;
+
+public class PokemonSearch {
+    private JSONObject json;
+    private String name;
+    public PokemonSearch(JSONObject JSONOBJECT) {
+        json = JSONOBJECT;
     }
     public String getPokemonName() {
      return name;
     }
     public String hiddenPassive() {
-        String toReturn = "No hidden ability";
-        for (int i = 15; i < rawJSON.length(); i++) {
-            String isHidden = "\"is_hidden\":true";
-            if (rawJSON.substring(i - 15, i + 1).equals(isHidden)) {
-                String abilityname = "\"name\":";
-                for (int j = i; j > 5; j--) {
-                    if (rawJSON.substring(j - 6, j + 1).equals(abilityname)) {
-                        int endindex = rawJSON.indexOf('"', j + 2);
-                        toReturn = rawJSON.substring(j + 2, endindex);
-                    }
-                }
-            }
-        }
-        System.out.println(toReturn);
-        return toReturn;
+       try {
+           JSONArray abilities = json.getJSONArray("abilities");
+           for (int i = 0; i < abilities.length(); i++) {
+               JSONObject hidden = abilities.getJSONObject(i);
+               if (hidden.getString("is_hidden").equals("true")) {
+                   return "Hidden Ability: " + hidden.getJSONObject("ability").getString("name");
+
+               }
+           }
+       } catch (Exception e) {
+           return e.toString();
+       }
+       return "big error";
     }
     public String passive() {
-        String toReturn = "No ability";
-        for (int i = 16; i < rawJSON.length(); i++ ) {
-            String notHidden = "\"is_hidden\":false";
-            if (rawJSON.substring(i - 16, i + 1).equals(notHidden)) {
-                String abilityname = "\"name\":";
-                for (int j = i; j > 5; j++) {
-                    if (rawJSON.substring(j - 6, j + 1).equals(abilityname)) {
-                        int endindex = rawJSON.indexOf('"', j + 2);
-                        toReturn = rawJSON.substring(j + 2, endindex);
-                    }
+        try {
+            JSONArray abilities = json.getJSONArray("abilities");
+            for (int i = 0; i < abilities.length(); i++) {
+                JSONObject hidden = abilities.getJSONObject(i);
+                if (hidden.getString("is_hidden").equals("false")) {
+                    return "Ability: " + hidden.getJSONObject("ability").getString("name");
                 }
             }
+        } catch (Exception e) {
+            return e.toString();
         }
-        return toReturn;
+        return "big error";
+    }
+    public String weight() {
+        try {
+            int hecto = Integer.parseInt(json.getString("weight"));
+            double lbs = hecto * 0.2204622622;
+            DecimalFormat df = new DecimalFormat("#.##");
+            return "Weight: " + df.format(lbs) + " lbs";
+        } catch (Exception e) {
+            return e.toString();
+        }
+    }
+    public String height() {
+        try {
+            int hecto = Integer.parseInt(json.getString("height"));
+            double height = 0.328084 * hecto;
+            int feet = 0;
+            for (; height > 1; height--) {
+                feet++;
+            }
+            double inches = height * 12;
+            DecimalFormat df = new DecimalFormat("#");
+            String inch = df.format(inches);
+            char quot = (char) 34;
+            return "Height: " + feet + "'" + " " + inch + quot;
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
 }

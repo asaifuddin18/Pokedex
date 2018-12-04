@@ -56,9 +56,15 @@ public class Main2Activity extends AppCompatActivity {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(final JSONObject response) {
-                            TextView test = findViewById(R.id.nationaldex);
-                            //test.setText("test"); this is how to set texts
-
+                            TextView ability = findViewById(R.id.ability);
+                            TextView hiddenability = findViewById(R.id.hiddenability);
+                            TextView weight = findViewById(R.id.weight);
+                            TextView height = findViewById(R.id.height);
+                            PokemonSearch tosearch = new PokemonSearch(response);
+                            ability.setText(tosearch.passive());
+                            hiddenability.setText(tosearch.hiddenPassive());
+                            weight.setText(tosearch.weight());
+                            height.setText(tosearch.height());
                         }
                     }, new Response.ErrorListener() {
                 @Override
