@@ -72,4 +72,13 @@ public class PokemonSearch {
             return e.toString();
         }
     }
+    public String dex() {
+        try {
+            JSONArray indecies = json.getJSONArray("game_indices");
+            String number = indecies.getJSONObject(0).getString("game_index");
+            return "National Dex: #" + number;
+        } catch (Exception e) {
+            return e.toString();
+        }
+    }
 }

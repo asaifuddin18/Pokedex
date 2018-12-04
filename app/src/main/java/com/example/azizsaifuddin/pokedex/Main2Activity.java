@@ -23,6 +23,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 public class Main2Activity extends AppCompatActivity {
     private static RequestQueue requestQueue;
@@ -60,11 +61,15 @@ public class Main2Activity extends AppCompatActivity {
                             TextView hiddenability = findViewById(R.id.hiddenability);
                             TextView weight = findViewById(R.id.weight);
                             TextView height = findViewById(R.id.height);
+                            TextView dex = findViewById(R.id.nationaldex);
+                            TextView pokemonname = findViewById(R.id.pokemonname);
                             PokemonSearch tosearch = new PokemonSearch(response);
                             ability.setText(tosearch.passive());
                             hiddenability.setText(tosearch.hiddenPassive());
                             weight.setText(tosearch.weight());
                             height.setText(tosearch.height());
+                            dex.setText(tosearch.dex());
+                            pokemonname.setText(MainActivity.getInput());
                         }
                     }, new Response.ErrorListener() {
                 @Override
