@@ -1,7 +1,18 @@
 package com.example.azizsaifuddin.pokedex;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.TextView;
+import android.view.View;
+import android.content.Intent;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -10,7 +21,10 @@ import java.text.DecimalFormat;
 public class PokemonSearch {
     private JSONObject json;
     private String name;
-    public PokemonSearch(JSONObject JSONOBJECT) {
+    private static final String TAG = "PokemonSearch";
+    private static RequestQueue requestQueue;
+    public PokemonSearch(JSONObject JSONOBJECT, Activity input) {
+        requestQueue =  Volley.newRequestQueue(input.getApplicationContext());
         json = JSONOBJECT;
     }
     public String getPokemonName() {
@@ -81,4 +95,30 @@ public class PokemonSearch {
             return e.toString();
         }
     }
+    public String type() {
+        String typelist = "No types found";
+        try {
+            JSONArray types = json.getJSONArray("types");
+            for (int i = 0; i < types.length(); i++) {
+                if (i == 0) {
+                    typelist = types.getJSONObject(0).getJSONObject("type").getString("name");
+                    typelist = typelist.substring(0, 1).toUpperCase() + typelist.substring(1);
+                } else {
+                    String raw = types.getJSONObject(i).getJSONObject("type").getString("name");
+                    raw = raw.substring(0, 1).toUpperCase() + raw.substring(1);
+                    typelist = typelist + ", " + raw;
+                }
+                if (types.length() == 1) {
+                    typelist = "Type: " + typelist;
+                }
+                if (types.length() != 1 && i == types.length() - 1) {
+                    typelist = "Types: " + typelist;
+                }
+            }
+        } catch (Exception e) {
+            return e.toString();
+        }
+        return typelist;
+    }
+
 }

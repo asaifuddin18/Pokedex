@@ -22,6 +22,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
@@ -63,13 +64,18 @@ public class Main2Activity extends AppCompatActivity {
                             TextView height = findViewById(R.id.height);
                             TextView dex = findViewById(R.id.nationaldex);
                             TextView pokemonname = findViewById(R.id.pokemonname);
-                            PokemonSearch tosearch = new PokemonSearch(response);
+                            TextView species = findViewById(R.id.species);
+                            TextView type = findViewById(R.id.type);
+                            PokemonSearch tosearch = new PokemonSearch(response,Main2Activity.this);
                             ability.setText(tosearch.passive());
                             hiddenability.setText(tosearch.hiddenPassive());
                             weight.setText(tosearch.weight());
                             height.setText(tosearch.height());
                             dex.setText(tosearch.dex());
+                            species(response);
+                            flavortext(response);
                             pokemonname.setText(MainActivity.getInput());
+                            type.setText(tosearch.type());
                         }
                     }, new Response.ErrorListener() {
                 @Override
@@ -106,6 +112,92 @@ public class Main2Activity extends AppCompatActivity {
 
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(result);
+        }
+    }
+    public void species(JSONObject json) {
+        try {
+            String url = json.getJSONObject("species").getString("url");
+            Log.w(TAG, url + " THISISATEST");
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                    Request.Method.GET,
+                    url,
+                    null,
+                    new Response.Listener<JSONObject>() {
+                        private String thereturn;
+                        @Override
+                        public void onResponse(final JSONObject response) {
+                            try {
+                                JSONArray genera = response.getJSONArray("genera");
+                                for (int i = 0; i < genera.length(); i++) {
+                                    JSONObject genus = genera.getJSONObject(i);
+                                    JSONObject language = genus.getJSONObject("language");
+                                    Log.w(TAG, "worked");
+                                    Log.w(TAG, language.getString("name") + "LANGUAGE");
+                                    if (language.getString("name").equals("en")) {
+                                        TextView species = findViewById(R.id.species);
+                                        species.setText("The " + genus.getString("genus"));
+                                        break;
+                                    }
+                                }
+                            } catch (Exception e) {
+                                //do nothing
+                            }
+                        }
+                        public void initialize() {
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(final VolleyError error) {
+                    Log.w(TAG, error.toString());
+                }
+            });
+            requestQueue.add(jsonObjectRequest);
+            //progressBar.setVisibility(View.INVISIBLE);
+        } catch (Exception e) {
+            //display error in text box (pokemon not found).
+        }
+    }
+    public void flavortext(JSONObject json) {
+        try {
+            String url = json.getJSONObject("species").getString("url");
+            Log.w(TAG, url + " THISISATEST");
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                    Request.Method.GET,
+                    url,
+                    null,
+                    new Response.Listener<JSONObject>() {
+                        private String thereturn;
+                        @Override
+                        public void onResponse(final JSONObject response) {
+                            try {
+                                JSONArray flavorarray = response.getJSONArray("flavor_text_entries");
+                                for (int i = 0; i < flavorarray.length(); i++) {
+                                    JSONObject flavor = flavorarray.getJSONObject(i);
+                                    JSONObject language = flavor.getJSONObject("language");
+                                    Log.w(TAG, "worked");
+                                    Log.w(TAG, language.getString("name") + "LANGUAGE");
+                                    if (language.getString("name").equals("en")) {
+                                        TextView description = findViewById(R.id.description);
+                                        description.setText(flavor.getString("flavor_text"));
+                                        break;
+                                    }
+                                }
+                            } catch (Exception e) {
+                                //do nothing
+                            }
+                        }
+                        public void initialize() {
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(final VolleyError error) {
+                    Log.w(TAG, error.toString());
+                }
+            });
+            requestQueue.add(jsonObjectRequest);
+            //progressBar.setVisibility(View.INVISIBLE);
+        } catch (Exception e) {
+            //display error in text box (pokemon not found).
         }
     }
 }
