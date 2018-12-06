@@ -29,7 +29,7 @@ import org.w3c.dom.Text;
 public class Main2Activity extends AppCompatActivity {
     private static RequestQueue requestQueue;
     private static final String TAG = "Main2Activity";
-    private String url;
+    private static String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +38,7 @@ public class Main2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         url = "https://pokeapi.co/api/v2/pokemon/" + MainActivity.getInput() + "/";
         Button stats = findViewById(R.id.statsevolution);
-        new DownloadImageTask((ImageView) findViewById(R.id.pokemonImage)) //pokemonimage
-                .execute("https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png"); //pokemon image
+        //pokemon image
         stats.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,12 +65,24 @@ public class Main2Activity extends AppCompatActivity {
                             TextView pokemonname = findViewById(R.id.pokemonname);
                             TextView species = findViewById(R.id.species);
                             TextView type = findViewById(R.id.type);
-                            PokemonSearch tosearch = new PokemonSearch(response,Main2Activity.this);
+                            PokemonSearch tosearch = new PokemonSearch(response);
+                            int dexnumber = Integer.parseInt(tosearch.dex("number"));
+                            if (dexnumber < 10) {
+                                new DownloadImageTask((ImageView) findViewById(R.id.pokemonImage)) //pokemonimage
+                                        .execute("https://assets.pokemon.com/assets/cms2/img/pokedex/full/00" + dexnumber +".png");
+                            } else if (dexnumber < 100) {
+                                new DownloadImageTask((ImageView) findViewById(R.id.pokemonImage)) //pokemonimage
+                                        .execute("https://assets.pokemon.com/assets/cms2/img/pokedex/full/0" + dexnumber + ".png");
+                                Log.w(TAG, dexnumber + "DEXNUMBER RIGHT HERE");
+                            } else {
+                                new DownloadImageTask((ImageView) findViewById(R.id.pokemonImage)) //pokemonimage
+                                        .execute("https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + dexnumber + ".png"); //DOES NOT WORK FOR XERNEAS!
+                            }
                             ability.setText(tosearch.passive());
                             hiddenability.setText(tosearch.hiddenPassive());
                             weight.setText(tosearch.weight());
                             height.setText(tosearch.height());
-                            dex.setText(tosearch.dex());
+                            dex.setText(tosearch.dex("formatted"));
                             species(response);
                             flavortext(response);
                             pokemonname.setText(MainActivity.getInput());
@@ -199,5 +210,8 @@ public class Main2Activity extends AppCompatActivity {
         } catch (Exception e) {
             //display error in text box (pokemon not found).
         }
+    }
+    public static String getUrl() {
+        return url;
     }
 }

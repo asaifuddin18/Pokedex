@@ -30,15 +30,17 @@ public class MainActivity extends AppCompatActivity {
 
     private static RequestQueue requestQueue;
     private static final String TAG = "MainActivity";
-    private static String input = "pikachu";
+    private static String input;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button searchForPokemon = findViewById(R.id.button);
+        final EditText search = findViewById(R.id.editText);
         searchForPokemon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
+                input = search.getText().toString();
                 Intent intent = new Intent(MainActivity.this, Main2Activity.class);
                 startActivity(intent);
             }
@@ -47,4 +49,5 @@ public class MainActivity extends AppCompatActivity {
     public static String getInput() {
         return input;
     }
+
 }

@@ -22,9 +22,7 @@ public class PokemonSearch {
     private JSONObject json;
     private String name;
     private static final String TAG = "PokemonSearch";
-    private static RequestQueue requestQueue;
-    public PokemonSearch(JSONObject JSONOBJECT, Activity input) {
-        requestQueue =  Volley.newRequestQueue(input.getApplicationContext());
+    public PokemonSearch(JSONObject JSONOBJECT) {
         json = JSONOBJECT;
     }
     public String getPokemonName() {
@@ -86,10 +84,13 @@ public class PokemonSearch {
             return e.toString();
         }
     }
-    public String dex() {
+    public String dex(String input) {
         try {
             JSONArray indecies = json.getJSONArray("game_indices");
             String number = indecies.getJSONObject(0).getString("game_index");
+            if (input.equals("number")) {
+                return number;
+            }
             return "National Dex: #" + number;
         } catch (Exception e) {
             return e.toString();
@@ -120,5 +121,28 @@ public class PokemonSearch {
         }
         return typelist;
     }
-
+    public String getStat(String stat) {
+        String proper = stat.substring(0,1).toUpperCase() + stat.substring(1);//BIG ERROR
+        for (int i = 0; i < proper.length(); i++) {
+            if (proper.charAt(i) == '-') {
+                proper = proper.substring(0, i) + " " + proper.substring(i + 1);
+                proper = proper.substring(0, i + 1) + proper.substring(i + 1, i + 2) + proper.substring(i + 2) + ": ";
+                break;
+            } else  if (i == proper.length() - 1) {
+                proper = proper + ": ";
+            }
+        }
+        String toReturn = "error could not find stat";
+        try {
+            JSONArray stats = json.getJSONArray("stats");
+            for (int i = 0; i < stats.length(); i++) {
+                if (stats.getJSONObject(i).getJSONObject("stat").getString("name").equals(stat)) {
+                     toReturn = proper + stats.getJSONObject(i).getString("base_stat");
+                }
+            }
+        } catch (Exception e) {
+            return e.toString();
+        }
+        return toReturn;
+    }
 }
