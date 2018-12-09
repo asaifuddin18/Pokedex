@@ -66,19 +66,43 @@ public class PokemonSearch {
         }
         return "no url";
     }
+    public String passiveURL() {
+        try {
+            JSONArray abilities = json.getJSONArray("abilities");
+            for (int i = 0; i < abilities.length(); i++) {
+                JSONObject hidden = abilities.getJSONObject(i);
+                if (hidden.getString("is_hidden").equals("false")) {
+                    return hidden.getJSONObject("ability").getString("url");
+                }
+            }
+        } catch (Exception e) {
+            return e.toString();
+        }
+        return "no url";
+    }
     public String passive() {
         try {
             JSONArray abilities = json.getJSONArray("abilities");
             for (int i = 0; i < abilities.length(); i++) {
                 JSONObject hidden = abilities.getJSONObject(i);
                 if (hidden.getString("is_hidden").equals("false")) {
-                    return "Ability: " + hidden.getJSONObject("ability").getString("name").substring(0, 1).toUpperCase() + hidden.getJSONObject("ability").getString("name").substring(1);
+                    String hidab = hidden.getJSONObject("ability").getString("name");
+                    hidab = hidab.substring(0 ,1).toUpperCase() + hidab.substring(1);
+                    for (int j = 1; j < hidab.length(); j++) {
+                        Log.w(TAG, "HIDDENABILITYTEST" + hidab);
+                        if (hidab.substring(j - 1, j).equals("-")) {
+                            Log.w(TAG, "HYPHEN" + hidab);
+                            hidab = hidab.substring(0, j - 1) + " " + hidab.substring(j, j + 1).toUpperCase() + hidab.substring(j + 1);
+                            break;
+                        }
+                    }
+                    return "Ability: " + hidab;
                 }
             }
         } catch (Exception e) {
             return e.toString();
         }
-        return "big error";
+        return "Ability: none";
     }
     public String weight() {
         try {
@@ -108,15 +132,18 @@ public class PokemonSearch {
         }
     }
     public String dex(String input) {
+        Log.w(TAG, "GEN6DEBUG  DEX");
         try {
-            JSONArray indecies = json.getJSONArray("game_indices");
-            String number = indecies.getJSONObject(0).getString("game_index");
+            //JSONArray indecies = json.getJSONArray("game_indices");
+            String number = json.getString("id");
+            //String number = indecies.getJSONObject(0).getString("game_index");
             if (input.equals("number")) {
                 return number;
             }
             return "National Dex: #" + number;
         } catch (Exception e) {
-            return e.toString();
+            e.printStackTrace();
+            return "5";
         }
     }
     public String type() {

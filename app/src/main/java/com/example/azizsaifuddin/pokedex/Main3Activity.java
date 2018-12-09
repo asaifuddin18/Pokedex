@@ -3,6 +3,7 @@ package com.example.azizsaifuddin.pokedex;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -100,11 +101,16 @@ public class Main3Activity extends AppCompatActivity {
                                         new Response.Listener<JSONObject>() {
                                             @Override
                                             public void onResponse(final JSONObject response) {
+                                                int thirdevo = 3;
                                                 try {
                                                     JSONObject chain = response.getJSONObject("chain");
                                                     JSONArray evolvesto = chain.getJSONArray("evolves_to");
                                                     Log.w("TAG", "EVOLUTIONk" + evolvesto.length());
                                                     if (evolvesto == null || evolvesto.length() == 0) {
+                                                        ImageView image = findViewById(R.id.secondevo);
+                                                        image.setVisibility(View.INVISIBLE);
+                                                        ImageView image2 = findViewById(R.id.thirdevo);
+                                                        image2.setVisibility(View.INVISIBLE);
                                                         String evostring1 = chain.getJSONObject("species").getString("name");
                                                         evostring1 = "https://pokeapi.co/api/v2/pokemon/" + evostring1 + "/";
                                                         Log.w(TAG, "TESTERINO " + evostring1);
@@ -125,8 +131,13 @@ public class Main3Activity extends AppCompatActivity {
                                                         url[2] = "https://pokeapi.co/api/v2/pokemon/" + evostring3 + "/";
                                                         evochainJSONGETTER(url[2], 3);
                                                         Log.w(TAG, "EVOLUTION " + url[2]);
+                                                        thirdevo = 5;
                                                     }
                                                 } catch (Exception e) {
+                                                    if (thirdevo == 3) {
+                                                        ImageView image3 = findViewById(R.id.thirdevo);
+                                                        image3.setVisibility(View.INVISIBLE);
+                                                    }
                                                     e.printStackTrace();
                                                 }
                                             }
@@ -157,7 +168,9 @@ public class Main3Activity extends AppCompatActivity {
         }
     }
     public void evochainJSONGETTER(String pokemonURL, final int number) {
-        Log.w(TAG, "HELPER " + pokemonURL + number);
+        if (number == 3) {
+            Log.w(TAG, "NUMBER3 " + pokemonURL);
+        }
         try {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.GET,
@@ -195,7 +208,7 @@ public class Main3Activity extends AppCompatActivity {
                                         new DownloadImageTask((ImageView) findViewById(R.id.secondevo)) //pokemonimage
                                                 .execute("https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + dexnumber + ".png"); //DOES NOT WORK FOR GEN 6 & 7
                                     }
-                                } else {
+                                } else { //number == 3
                                     if (dexnumber < 10) {
                                         new DownloadImageTask((ImageView) findViewById(R.id.thirdevo)) //pokemonimage
                                                 .execute("https://assets.pokemon.com/assets/cms2/img/pokedex/full/00" + dexnumber +".png");
@@ -209,7 +222,11 @@ public class Main3Activity extends AppCompatActivity {
                                     }
                                 }
                             } catch (Exception e) {
-                                Log.w(TAG, "HELPER " + e.toString());
+                                Log.w(TAG, "HELPER BIG ERROR " + e.toString());
+                                if (number == 3) {
+                                    ImageView image3 = findViewById(R.id.thirdevo);
+                                    image3.setVisibility(View.INVISIBLE);
+                                }
                             }
                         }
                         public void initialize() {
@@ -223,7 +240,10 @@ public class Main3Activity extends AppCompatActivity {
             requestQueue.add(jsonObjectRequest);
             //progressBar.setVisibility(View.INVISIBLE);
         } catch (Exception e) {
-            //display error in text box (pokemon not found).
+            if (number == 3) {
+                ImageView image3 = findViewById(R.id.thirdevo);
+                image3.setVisibility(View.INVISIBLE);
+            }
         }
     }
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {

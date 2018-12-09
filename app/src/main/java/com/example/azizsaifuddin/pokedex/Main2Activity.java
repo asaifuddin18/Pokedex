@@ -53,6 +53,11 @@ public class Main2Activity extends AppCompatActivity {
         Log.w(TAG, "TOASTERINO " + test);
         hiddenabilityToast(tosearch.hiddenPassiveURL());
     }
+    public void abilityShowToast(View view) {
+        String test = tosearch.passiveURL();
+        Log.w(TAG, "ABILITYTOASY" + test);
+        abilityToast(test);
+    }
     void startAPICall() {
         try {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -71,7 +76,8 @@ public class Main2Activity extends AppCompatActivity {
                             TextView species = findViewById(R.id.species);
                             TextView type = findViewById(R.id.type);
                             tosearch = new PokemonSearch(response);
-                            int dexnumber = Integer.parseInt(tosearch.dex("number"));
+                            int dexnumber = Integer.parseInt(tosearch.dex("number")); //a source of error
+                            Log.w(TAG, "GEN6DEBUG  TRIGGERAFTER");
                             if (dexnumber < 10) {
                                 new DownloadImageTask((ImageView) findViewById(R.id.pokemonImage)) //pokemonimage
                                         .execute("https://assets.pokemon.com/assets/cms2/img/pokedex/full/00" + dexnumber +".png");
@@ -117,6 +123,41 @@ public class Main2Activity extends AppCompatActivity {
         }
     }
     public void hiddenabilityToast(String inputurl) {
+        try {
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                    Request.Method.GET,
+                    inputurl,
+                    null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(final JSONObject response) {
+                            try {
+                                JSONArray flavortest = response.getJSONArray("flavor_text_entries");
+                                for (int i = 0; i < flavortest.length(); i++) {
+                                    if (flavortest.getJSONObject(i).getJSONObject("language").getString("name").equals("en")) {
+                                        Toast.makeText(Main2Activity.this, flavortest.getJSONObject(i).getString("flavor_text"), Toast.LENGTH_LONG).show();
+                                        break;
+                                    }
+                                }
+                            } catch (Exception e) {
+                                //do nothing
+                            }
+                        }
+                        public void initialize() {
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(final VolleyError error) {
+                    Log.w(TAG, error.toString());
+                }
+            });
+            requestQueue.add(jsonObjectRequest);
+            //progressBar.setVisibility(View.INVISIBLE);
+        } catch (Exception e) {
+            //display error in text box (pokemon not found).
+        }
+    }
+    public void abilityToast(String inputurl) {
         try {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.GET,
