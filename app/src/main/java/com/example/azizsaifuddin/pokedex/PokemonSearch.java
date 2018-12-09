@@ -175,7 +175,7 @@ public class PokemonSearch {
         }
         return typelist;
     }
-    public String getStat(String stat) {
+    public String getStat(String stat, boolean justnumber) {
         String proper = stat;
         Boolean hyphen = false;
         for (int i = 0; i < proper.length(); i++) {
@@ -194,7 +194,11 @@ public class PokemonSearch {
             JSONArray stats = json.getJSONArray("stats");
             for (int i = 0; i < stats.length(); i++) {
                 if (stats.getJSONObject(i).getJSONObject("stat").getString("name").equals(stat)) {
-                     toReturn = proper + stats.getJSONObject(i).getString("base_stat");
+                     if (justnumber) {
+                         toReturn = stats.getJSONObject(i).getString("base_stat");
+                     } else  {
+                         toReturn = proper + stats.getJSONObject(i).getString("base_stat");
+                     }
                 }
             }
         } catch (Exception e) {

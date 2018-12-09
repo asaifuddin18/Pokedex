@@ -1,10 +1,12 @@
 package com.example.azizsaifuddin.pokedex;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -49,13 +51,26 @@ public class Main3Activity extends AppCompatActivity {
                            TextView defense = findViewById(R.id.defense);
                            TextView specialdefense = findViewById(R.id.specialdefense);
                            TextView speed = findViewById(R.id.speed);
+                           ProgressBar hppro = findViewById(R.id.hpprogessbar);
+                           ProgressBar atkpro = findViewById(R.id.attackprogessbar);
+                           ProgressBar spapro = findViewById(R.id.specattackprogessbar);
+                           ProgressBar defpro = findViewById(R.id.defprogessbar);
+                           ProgressBar spedpro = findViewById(R.id.spdprogessbar);
+                           ProgressBar speedpro = findViewById(R.id.speedprogessbar);
                            PokemonSearch tosearch = new PokemonSearch(response);
-                           hp.setText(tosearch.getStat("hp"));
-                           attack.setText(tosearch.getStat("attack"));
-                           specialattack.setText(tosearch.getStat("special-attack"));
-                           defense.setText(tosearch.getStat("defense"));
-                           specialdefense.setText(tosearch.getStat("special-defense"));
-                           speed.setText(tosearch.getStat("speed"));
+                           hp.setText(tosearch.getStat("hp", false));
+                           hppro.setProgress(Integer.parseInt(tosearch.getStat("hp", true)), true);
+                           atkpro.setProgress(Integer.parseInt(tosearch.getStat("attack", true)), true);
+                           spapro.setProgress(Integer.parseInt(tosearch.getStat("special-attack", true)), true);
+                           defpro.setProgress(Integer.parseInt(tosearch.getStat("defense", true)), true);
+                           spedpro.setProgress(Integer.parseInt(tosearch.getStat("special-defense", true)), true);
+                           speedpro.setProgress(Integer.parseInt(tosearch.getStat("speed", true)), true);
+                           Log.w(TAG, "HPPROGRESSBAR" + tosearch.getStat("hp", true));
+                           attack.setText(tosearch.getStat("attack", false));
+                           specialattack.setText(tosearch.getStat("special-attack", false));
+                           defense.setText(tosearch.getStat("defense", false));
+                           specialdefense.setText(tosearch.getStat("special-defense", false));
+                           speed.setText(tosearch.getStat("speed", false));
                            getEvo(response);
                         }
                     }, new Response.ErrorListener() {
