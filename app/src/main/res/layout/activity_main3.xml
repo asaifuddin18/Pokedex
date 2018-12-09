@@ -81,4 +81,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/firstevo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/images"
+        tools:layout_editor_absoluteX="246dp"
+        tools:layout_editor_absoluteY="385dp" />
+
+    <ImageView
+        android:id="@+id/secondevo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/images"
+        tools:layout_editor_absoluteX="246dp"
+        tools:layout_editor_absoluteY="545dp" />
+
+    <ImageView
+        android:id="@+id/thirdevo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/images"
+        tools:layout_editor_absoluteX="272dp"
+        tools:layout_editor_absoluteY="703dp" />
 </android.support.constraint.ConstraintLayout>

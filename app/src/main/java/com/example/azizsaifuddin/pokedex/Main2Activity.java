@@ -15,16 +15,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import java.io.IOException;
+
 import java.io.InputStream;
-import java.net.URL;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 public class Main2Activity extends AppCompatActivity {
     private static RequestQueue requestQueue;
@@ -76,8 +75,18 @@ public class Main2Activity extends AppCompatActivity {
                                 Log.w(TAG, dexnumber + "DEXNUMBER RIGHT HERE");
                             } else {
                                 new DownloadImageTask((ImageView) findViewById(R.id.pokemonImage)) //pokemonimage
-                                        .execute("https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + dexnumber + ".png"); //DOES NOT WORK FOR XERNEAS!
+                                        .execute("https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + dexnumber + ".png"); //DOES NOT WORK FOR GEN 6 & 7
                             }
+                            String[] urls = tosearch.getSprite();
+                            Log.w(TAG, "SPRITES URL" + urls[0]);
+                            new DownloadImageTask((ImageView) findViewById(R.id.front_default)) //pokemonimage
+                                    .execute(urls[0]);
+                            new DownloadImageTask((ImageView) findViewById(R.id.front_shiny)) //pokemonimage
+                                    .execute(urls[1]);
+                            new DownloadImageTask((ImageView) findViewById(R.id.back_default)) //pokemonimage
+                                    .execute(urls[2]);
+                            new DownloadImageTask((ImageView) findViewById(R.id.back_shiny)) //pokemonimage
+                                    .execute(urls[3]);
                             ability.setText(tosearch.passive());
                             hiddenability.setText(tosearch.hiddenPassive());
                             weight.setText(tosearch.weight());
@@ -214,4 +223,5 @@ public class Main2Activity extends AppCompatActivity {
     public static String getUrl() {
         return url;
     }
+
 }

@@ -34,14 +34,14 @@ public class PokemonSearch {
            for (int i = 0; i < abilities.length(); i++) {
                JSONObject hidden = abilities.getJSONObject(i);
                if (hidden.getString("is_hidden").equals("true")) {
-                   return "Hidden Ability: " + hidden.getJSONObject("ability").getString("name");
+                   return "Hidden Ability: " + hidden.getJSONObject("ability").getString("name").substring(0, 1).toUpperCase() + hidden.getJSONObject("ability").getString("name").substring(1);
 
                }
            }
        } catch (Exception e) {
            return e.toString();
        }
-       return "big error";
+       return "Hidden Abiltiy: none";
     }
     public String passive() {
         try {
@@ -49,7 +49,7 @@ public class PokemonSearch {
             for (int i = 0; i < abilities.length(); i++) {
                 JSONObject hidden = abilities.getJSONObject(i);
                 if (hidden.getString("is_hidden").equals("false")) {
-                    return "Ability: " + hidden.getJSONObject("ability").getString("name");
+                    return "Ability: " + hidden.getJSONObject("ability").getString("name").substring(0, 1).toUpperCase() + hidden.getJSONObject("ability").getString("name").substring(1);
                 }
             }
         } catch (Exception e) {
@@ -122,16 +122,19 @@ public class PokemonSearch {
         return typelist;
     }
     public String getStat(String stat) {
-        String proper = stat.substring(0,1).toUpperCase() + stat.substring(1);//BIG ERROR
+        String proper = stat;
+        Boolean hyphen = false;
         for (int i = 0; i < proper.length(); i++) {
             if (proper.charAt(i) == '-') {
-                proper = proper.substring(0, i) + " " + proper.substring(i + 1);
-                proper = proper.substring(0, i + 1) + proper.substring(i + 1, i + 2) + proper.substring(i + 2) + ": ";
+                hyphen = true;
+                proper = proper.substring(0, i) + " " + proper.substring(i + 1, i + 2).toUpperCase() + proper.substring(i + 2) + ": ";
                 break;
-            } else  if (i == proper.length() - 1) {
-                proper = proper + ": ";
             }
         }
+        if (!hyphen) {
+            proper += ": ";
+        }
+        proper = proper.substring(0, 1).toUpperCase() + proper.substring(1);
         String toReturn = "error could not find stat";
         try {
             JSONArray stats = json.getJSONArray("stats");
@@ -144,5 +147,19 @@ public class PokemonSearch {
             return e.toString();
         }
         return toReturn;
+    }
+    public String[] getSprite() {
+        String[] urls = new String[4];
+        try {
+            urls[0] = json.getJSONObject("sprites").getString("front_default");
+            urls[1] = json.getJSONObject("sprites").getString("front_shiny");
+            urls[2] = json.getJSONObject("sprites").getString("back_default");
+            urls[3] = json.getJSONObject("sprites").getString("back_shiny");
+        } catch (Exception e) {
+            for (int i = 0; i < urls.length; i++) {
+                urls[i] = e.toString();
+            }
+        }
+        return urls;
     }
 }
