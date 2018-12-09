@@ -105,10 +105,12 @@ public class Main3Activity extends AppCompatActivity {
                                                     JSONArray evolvesto = chain.getJSONArray("evolves_to");
                                                     Log.w("TAG", "EVOLUTIONk" + evolvesto.length());
                                                     if (evolvesto == null || evolvesto.length() == 0) {
+                                                        String evostring1 = chain.getJSONObject("species").getString("name");
+                                                        evostring1 = "https://pokeapi.co/api/v2/pokemon/" + evostring1 + "/";
+                                                        Log.w(TAG, "TESTERINO " + evostring1);
                                                         //Log.w(TAG, "EVOLUTION " + chain.getJSONObject("species").getString("name"));
-                                                        new Main3Activity.DownloadImageTask((ImageView) findViewById(R.id.firstevo)) //pokemonimage
-                                                                .execute(chain.getJSONObject("species").getString("url")); //gets name.
-                                                        url[0] = chain.getJSONObject("species").getString("url");
+                                                        evochainJSONGETTER(evostring1, 1);
+                                                        //url[0] = chain.getJSONObject("species").getString("url");
                                                     }
                                                     if (evolvesto.length() == 1) {
                                                         String evostring1 = chain.getJSONObject("species").getString("name");

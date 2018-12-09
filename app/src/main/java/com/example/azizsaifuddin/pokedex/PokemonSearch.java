@@ -34,14 +34,37 @@ public class PokemonSearch {
            for (int i = 0; i < abilities.length(); i++) {
                JSONObject hidden = abilities.getJSONObject(i);
                if (hidden.getString("is_hidden").equals("true")) {
-                   return "Hidden Ability: " + hidden.getJSONObject("ability").getString("name").substring(0, 1).toUpperCase() + hidden.getJSONObject("ability").getString("name").substring(1);
-
+                   String hidab = hidden.getJSONObject("ability").getString("name");
+                   hidab = hidab.substring(0 ,1).toUpperCase() + hidab.substring(1);
+                   for (int j = 1; j < hidab.length(); j++) {
+                       Log.w(TAG, "HIDDENABILITYTEST" + hidab);
+                       if (hidab.substring(j - 1, j).equals("-")) {
+                           Log.w(TAG, "HYPHEN" + hidab);
+                           hidab = hidab.substring(0, j - 1) + " " + hidab.substring(j, j + 1).toUpperCase() + hidab.substring(j + 1);
+                           break;
+                       }
+                   }
+                   return "Hidden Ability: " + hidab;
                }
            }
        } catch (Exception e) {
            return e.toString();
        }
-       return "Hidden Abiltiy: none";
+       return "Hidden Ability: none";
+    }
+    public String hiddenPassiveURL() {
+        try {
+            JSONArray abilities = json.getJSONArray("abilities");
+            for (int i = 0; i < abilities.length(); i++) {
+                JSONObject hidden = abilities.getJSONObject(i);
+                if (hidden.getString("is_hidden").equals("true")) {
+                    return hidden.getJSONObject("ability").getString("url");
+                }
+            }
+        } catch (Exception e) {
+            return e.toString();
+        }
+        return "no url";
     }
     public String passive() {
         try {

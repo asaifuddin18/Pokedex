@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -21,6 +20,7 @@ import java.io.InputStream;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -29,6 +29,7 @@ public class Main2Activity extends AppCompatActivity {
     private static RequestQueue requestQueue;
     private static final String TAG = "Main2Activity";
     private static String url;
+    private PokemonSearch tosearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,11 @@ public class Main2Activity extends AppCompatActivity {
         });
         startAPICall();
     }
+    public void showToast(View view) {
+        String test = tosearch.hiddenPassiveURL();
+        Log.w(TAG, "TOASTERINO " + test);
+        hiddenabilityToast(tosearch.hiddenPassiveURL());
+    }
     void startAPICall() {
         try {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -64,7 +70,7 @@ public class Main2Activity extends AppCompatActivity {
                             TextView pokemonname = findViewById(R.id.pokemonname);
                             TextView species = findViewById(R.id.species);
                             TextView type = findViewById(R.id.type);
-                            PokemonSearch tosearch = new PokemonSearch(response);
+                            tosearch = new PokemonSearch(response);
                             int dexnumber = Integer.parseInt(tosearch.dex("number"));
                             if (dexnumber < 10) {
                                 new DownloadImageTask((ImageView) findViewById(R.id.pokemonImage)) //pokemonimage
@@ -107,6 +113,41 @@ public class Main2Activity extends AppCompatActivity {
             //progressBar.setVisibility(View.INVISIBLE);
         } catch (Exception e) {
             e.printStackTrace();
+            //display error in text box (pokemon not found).
+        }
+    }
+    public void hiddenabilityToast(String inputurl) {
+        try {
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                    Request.Method.GET,
+                    inputurl,
+                    null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(final JSONObject response) {
+                            try {
+                                JSONArray flavortest = response.getJSONArray("flavor_text_entries");
+                                for (int i = 0; i < flavortest.length(); i++) {
+                                    if (flavortest.getJSONObject(i).getJSONObject("language").getString("name").equals("en")) {
+                                        Toast.makeText(Main2Activity.this, flavortest.getJSONObject(i).getString("flavor_text"), Toast.LENGTH_LONG).show();
+                                        break;
+                                    }
+                                }
+                            } catch (Exception e) {
+                                //do nothing
+                            }
+                        }
+                        public void initialize() {
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(final VolleyError error) {
+                    Log.w(TAG, error.toString());
+                }
+            });
+            requestQueue.add(jsonObjectRequest);
+            //progressBar.setVisibility(View.INVISIBLE);
+        } catch (Exception e) {
             //display error in text box (pokemon not found).
         }
     }
