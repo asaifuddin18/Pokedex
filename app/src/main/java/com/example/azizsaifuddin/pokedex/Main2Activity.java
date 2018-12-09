@@ -107,6 +107,7 @@ public class Main2Activity extends AppCompatActivity {
                             species(response);
                             flavortext(response);
                             pokemonname.setText(MainActivity.getInput());
+                            pokemonname.setText(tosearch.getPokemonName());
                             type.setText(tosearch.type());
                         }
                     }, new Response.ErrorListener() {

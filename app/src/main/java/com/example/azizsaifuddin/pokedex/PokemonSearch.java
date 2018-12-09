@@ -26,7 +26,11 @@ public class PokemonSearch {
         json = JSONOBJECT;
     }
     public String getPokemonName() {
-     return name;
+     try {
+         return json.getJSONObject("species").getString("name").toString();
+     } catch (Exception e) {
+         return "error";
+     }
     }
     public String hiddenPassive() {
        try {
