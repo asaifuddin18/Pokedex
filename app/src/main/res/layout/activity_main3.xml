@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/appbackgroundrotated"
     tools:context=".Main3Activity"
     tools:layout_editor_absoluteY="89dp">
 
@@ -12,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="HP"
+        android:textColor="@android:color/black"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="32dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,6 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
+        android:textColor="@android:color/black"
         android:text="Attack"
         android:textSize="32dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,6 +33,7 @@
     <TextView
         android:id="@+id/specialattack"
         android:layout_width="wrap_content"
+        android:textColor="@android:color/black"
         android:layout_height="wrap_content"
         android:layout_marginTop="88dp"
         android:text="Special Attack"
@@ -42,6 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="132dp"
+        android:textColor="@android:color/black"
         android:text="Defense"
         android:textSize="32dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,6 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="220dp"
+        android:textColor="@android:color/black"
         android:text="Speed"
         android:textSize="32dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,6 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="42dp"
         android:layout_marginTop="176dp"
+        android:textColor="@android:color/black"
         android:text="Special Defense"
         android:textSize="32dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,6 +83,7 @@
         android:layout_marginTop="284dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:textColor="@android:color/black"
         android:text="Evolution Chain"
         android:textSize="50dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -97,8 +105,7 @@
         app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/firstevo"
-        app:layout_constraintVertical_bias="0.492"
-        app:srcCompat="@drawable/images" />
+        app:layout_constraintVertical_bias="0.492" />
 
     <ImageView
         android:id="@+id/thirdevo"
@@ -113,8 +120,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/evolution"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/images" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/firstevo"
@@ -126,8 +132,7 @@
         android:layout_marginRight="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/evolution"
-        app:srcCompat="@drawable/images" />
+        app:layout_constraintTop_toBottomOf="@+id/evolution" />
 
     <ProgressBar
         android:id="@+id/hpprogessbar"
@@ -135,6 +140,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:progressTint="#ff0000"
         android:layout_marginEnd="8dp"
         android:max="255"
         android:progress="0"
@@ -151,6 +157,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="192dp"
         android:max="255"
+        android:progressTint="#0004ff"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.472"
@@ -165,6 +172,7 @@
         android:layout_marginStart="8dp"
         android:max="255"
         android:layout_marginTop="60dp"
+        android:progressTint="#ff7300"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.445"
@@ -182,6 +190,7 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.004"
+        android:progressTint="#ffff00"
         app:layout_constraintStart_toEndOf="@+id/specialdefense"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -193,6 +202,7 @@
         android:layout_marginStart="8dp"
         android:max="255"
         android:layout_marginTop="236dp"
+        android:progressTint="#b700ff"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -207,6 +217,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="148dp"
+        android:progressTint="#0dff00"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/specialdefense"

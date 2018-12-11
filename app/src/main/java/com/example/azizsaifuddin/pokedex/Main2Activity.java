@@ -282,6 +282,7 @@ public class Main2Activity extends AppCompatActivity {
                                     if (language.getString("name").equals("en")) {
                                         TextView description = findViewById(R.id.description);
                                         description.setText(flavor.getString("flavor_text"));
+                                        description.setTextSize(28);
                                         break;
                                     }
                                 }

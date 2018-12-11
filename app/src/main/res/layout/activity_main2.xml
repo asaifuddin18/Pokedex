@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/appbackgroundrotated"
     tools:context=".Main2Activity">
 
     <TextView
@@ -32,7 +33,7 @@
         android:layout_marginBottom="196dp"
         android:text="NationalDex"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="20sp"
         android:textStyle="bold"
         app:fontFamily="serif"
@@ -51,7 +52,7 @@
         android:layout_marginRight="8dp"
         android:text="@string/species"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="20sp"
         android:textStyle="bold"
         app:fontFamily="serif"
@@ -66,7 +67,7 @@
         android:layout_height="35dp"
         android:text="@string/weight"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="20sp"
         android:textStyle="bold"
         app:fontFamily="serif"
@@ -82,7 +83,7 @@
         android:layout_marginTop="32dp"
         android:text="@string/height"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="20sp"
         android:textStyle="bold"
         app:fontFamily="serif"
@@ -99,7 +100,7 @@
         android:text="@string/ability"
         android:onClick="abilityShowToast"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="20sp"
         android:textStyle="bold"
         app:fontFamily="serif"
@@ -115,7 +116,7 @@
         android:layout_marginTop="96dp"
         android:text="@string/hidden_ability"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="20sp"
         android:textStyle="bold"
         android:onClick="showToast"
@@ -143,6 +144,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:textColor="@android:color/white"
         android:text="@string/type"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -154,18 +156,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:text="Description"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/pokemonname"
-        app:layout_constraintVertical_bias="0.575" />
+        app:layout_constraintVertical_bias="0.575"
+        tools:textColor="@android:color/white" />
 
     <ImageView
         android:id="@+id/pokemonImage"
@@ -191,8 +193,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
         app:layout_constraintBottom_toTopOf="@+id/nationaldex"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/images" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/front_shiny"
@@ -201,8 +202,7 @@
         android:layout_marginStart="200dp"
         android:layout_marginLeft="200dp"
         app:layout_constraintBottom_toTopOf="@+id/nationaldex"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/images" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/back_default"
@@ -211,8 +211,7 @@
         android:layout_marginEnd="200dp"
         android:layout_marginRight="200dp"
         app:layout_constraintBottom_toTopOf="@+id/nationaldex"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/images" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/back_shiny"
@@ -221,7 +220,6 @@
         android:layout_marginEnd="30dp"
         android:layout_marginRight="30dp"
         app:layout_constraintBottom_toTopOf="@+id/nationaldex"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/images" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
